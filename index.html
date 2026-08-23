@@ -1,0 +1,473 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8">
+<title>Fanta Vuelta 2026™️</title>
+<style>/* ===== Fanta Vuelta 2026 — broadcast-style card system ===== */
+:root{
+  --red:#c8102e;
+  --red-deep:#8c0a20;
+  --red-bright:#e21836;
+  --bg-deep:#1a0509;
+  --bg-mid:#2c0910;
+  --bg-light:#3d0f18;
+  --gold:#f2b705;
+  --gold-deep:#c8930a;
+  --green:#2fbf6a;
+  --green-deep:#1f9950;
+  --lunares:#2e6bc7;
+  --ink:#faf1ee;
+  --ink-dim:#d3a9ab;
+  --line: rgba(255,255,255,0.12);
+  --panel: rgba(255,255,255,0.055);
+  --panel-strong: rgba(255,255,255,0.10);
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:"DejaVu Sans","Helvetica Neue",Arial,sans-serif;
+  background:
+    radial-gradient(1100px 480px at 12% -8%, rgba(242,183,5,0.10), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(200,16,46,0.18), transparent 55%),
+    linear-gradient(180deg,var(--bg-deep) 0%, var(--bg-mid) 40%, var(--bg-light) 75%, #4a1420 100%);
+  color:var(--ink);
+}
+
+.condensed{ font-family:"DejaVu Sans Condensed","Arial Narrow",sans-serif; }
+
+.stage{
+  position:relative;
+  width:100%;
+  max-width:1180px;
+  margin:0 auto;
+  padding:36px 40px 44px;
+  overflow:hidden;
+}
+@media(max-width:768px){
+  .stage{ padding:22px 16px 30px; }
+}
+
+/* Spain-flag accent hairline along the very top of the page */
+.flag-rule{ position:absolute; top:0; left:0; width:100%; height:5px; z-index:3;
+  background:linear-gradient(90deg, var(--red) 0%, var(--red) 32%, var(--gold) 32%, var(--gold) 68%, var(--red) 68%, var(--red) 100%);
+}
+
+.mtn-svg{
+  position:absolute; left:0; bottom:0; width:100%; height:230px; z-index:0; opacity:0.55;
+}
+.texture-dots{
+  position:absolute; inset:0; z-index:0; opacity:0.05; pointer-events:none;
+  background-image: radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1.4px);
+  background-size: 18px 18px;
+}
+
+.header{
+  position:relative; z-index:2;
+  display:flex; align-items:center; gap:22px;
+  margin-bottom:26px;
+  flex-wrap:wrap;
+}
+
+.badge{
+  width:80px; height:80px; border-radius:50%;
+  background:radial-gradient(circle at 32% 28%, #5a1522, var(--bg-deep) 70%);
+  border:4px solid var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  box-shadow:0 0 0 4px rgba(242,183,5,0.14), 0 8px 20px rgba(0,0,0,0.35);
+}
+.badge svg{width:46px;height:46px;}
+
+.header-text .eyebrow{
+  font-family:"DejaVu Sans Condensed",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:0.14em;
+  font-size:13px;
+  color:var(--gold);
+  font-weight:700;
+  margin:0 0 4px;
+}
+.header-text h1{
+  margin:0;
+  font-family:"DejaVu Sans Condensed",sans-serif;
+  font-weight:700;
+  font-size:32px;
+  letter-spacing:0.01em;
+  color:#fff;
+  text-transform:uppercase;
+}
+.header-text .sub{
+  margin:4px 0 0;
+  font-size:15px;
+  color:var(--ink-dim);
+}
+
+.sponsor{
+  margin-left:auto;
+  background:#fff;
+  color:var(--red-deep);
+  font-family:"DejaVu Sans Condensed",sans-serif;
+  font-weight:700;
+  letter-spacing:0.03em;
+  font-size:20px;
+  padding:10px 20px;
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.3);
+}
+.sponsor .dot{width:10px;height:10px;border-radius:50%;background:var(--gold-deep);}
+
+/* ===== Ranking table ===== */
+.board{ position:relative; z-index:2; }
+
+.row{
+  display:grid;
+  grid-template-columns: 46px 1fr auto;
+  align-items:center;
+  column-gap:16px;
+  padding:9px 18px;
+  border-radius:8px;
+  margin-bottom:3px;
+}
+.row.alt{ background:var(--panel); }
+.row.leader{
+  background:linear-gradient(90deg, var(--red-bright) 0%, var(--red-deep) 100%);
+  color:#fff;
+  box-shadow:0 4px 16px rgba(200,16,46,0.35);
+  margin-bottom:6px;
+}
+.row.leader .pos{color:#fff;}
+.row.leader .team{color:#fff;}
+.row.leader .ds{color:rgba(255,255,255,0.75);}
+.row.leader .pts{color:#fff;}
+
+.pos{
+  font-family:"DejaVu Sans Condensed",sans-serif;
+  font-weight:700;
+  font-size:19px;
+  color:#fff;
+  text-align:center;
+}
+.team-block{ display:flex; flex-direction:column; min-width:0; }
+.team{
+  font-weight:700;
+  font-size:16.5px;
+  color:#fff;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.ds{
+  font-size:12.5px;
+  color:var(--ink-dim);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.pts-block{ display:flex; align-items:baseline; gap:10px; justify-content:flex-end; }
+.pts{
+  font-family:"DejaVu Sans Condensed",sans-serif;
+  font-weight:700;
+  font-size:20px;
+  color:#fff;
+  min-width:52px;
+  text-align:right;
+}
+.pts-totale{
+  background:var(--gold) !important;
+  color:#241800 !important;
+  border-radius:6px;
+  padding:2px 10px;
+  min-width:52px;
+}
+.pts-piazz{
+  background:var(--green) !important;
+  color:#052914 !important;
+  border-radius:6px;
+  padding:2px 10px;
+  min-width:52px;
+}
+.pts-label{
+  font-size:10.5px;
+  color:var(--ink-dim);
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+}
+.split-cols{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:14px 40px;
+}
+
+/* rider mini rows (card 3 & 4) */
+.mini-row{
+  display:grid;
+  grid-template-columns:26px 1fr auto;
+  padding:5px 10px;
+  font-size:13.5px;
+  border-radius:5px;
+}
+.mini-row.alt{ background:var(--panel); }
+.mini-row .mpos{ color:var(--ink-dim); font-weight:700; font-family:"DejaVu Sans Condensed",sans-serif; }
+.mini-row .mname{ color:#fff; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.mini-row .mpts{ color:var(--gold); font-weight:700; text-align:right; }
+
+.panel{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:14px 16px 10px;
+}
+.panel h3{
+  margin:0 0 10px;
+  font-family:"DejaVu Sans Condensed",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  font-size:14px;
+  color:var(--gold);
+  border-bottom:1px solid var(--line);
+  padding-bottom:8px;
+}
+
+.section-title{
+  font-family:"DejaVu Sans Condensed",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  font-size:15px;
+  color:var(--gold);
+  margin:26px 0 12px;
+  padding-bottom:6px;
+  border-bottom:1px solid var(--line);
+}
+
+.footer-note{
+  margin-top:22px;
+  font-size:11.5px;
+  color:var(--ink-dim);
+  text-align:right;
+  position:relative; z-index:2;
+}
+
+/* ===== Card 4: team grid ===== */
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:14px;
+  position:relative; z-index:2;
+}
+.team-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+}
+.team-card.leader-card{
+  border-color:var(--red-bright);
+  box-shadow:0 0 0 1px rgba(226,24,54,0.35);
+}
+.team-card-head{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:10px 14px;
+  background:var(--panel-strong);
+}
+.team-card.leader-card .team-card-head{
+  background:linear-gradient(90deg,var(--red-bright),var(--red-deep));
+}
+.team-card-head .tname{
+  font-weight:700; font-size:14.5px; color:#fff;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.team-card.leader-card .tname{ color:#fff; }
+.team-card-head .tpts{
+  font-family:"DejaVu Sans Condensed",sans-serif;
+  font-weight:700; font-size:17px; color:var(--gold); flex-shrink:0; margin-left:8px;
+}
+.team-card.leader-card .tpts{ color:#fff; }
+.team-card-ds{
+  font-size:11px; color:var(--ink-dim); padding:6px 14px 0;
+}
+.team-card.leader-card .team-card-ds{ color:rgba(255,255,255,0.75); background:linear-gradient(90deg,var(--red-bright),var(--red-deep)); padding-top:4px; padding-bottom:2px;}
+.rider-list{ padding:8px 10px 10px; }
+.rider-row{
+  display:flex; justify-content:space-between; gap:8px;
+  font-size:12.5px; padding:2.5px 6px; border-radius:4px;
+}
+.rider-row:nth-child(even){ background:rgba(255,255,255,0.035); }
+.rider-row .rname{ color:#f2dedf; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.rider-row .rpts{ color:var(--gold); font-weight:700; flex-shrink:0; }
+.rider-row.zero .rpts{ color:var(--ink-dim); font-weight:400; }
+
+.top-links-grid{
+  position:relative; z-index:2;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-bottom:24px;
+}
+@media(max-width:600px){
+  .top-links-grid{ grid-template-columns:1fr; }
+}
+.top-link-btn{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  text-decoration:none;
+  border-radius:14px;
+  padding:18px 22px;
+  border:1px solid var(--line);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.top-link-btn:hover{ transform:translateY(-3px); }
+.top-link-btn.rossa{
+  background:linear-gradient(90deg, var(--red-bright) 0%, var(--red-deep) 100%);
+  box-shadow:0 6px 18px rgba(226,24,54,0.32);
+}
+.top-link-btn.verde{
+  background:linear-gradient(90deg, var(--green) 0%, var(--green-deep) 100%);
+  box-shadow:0 6px 18px rgba(47,191,106,0.28);
+}
+.top-link-btn .tl-icon{
+  width:42px; height:42px; flex-shrink:0;
+  border-radius:50%;
+  background:rgba(0,0,0,0.18);
+  display:flex; align-items:center; justify-content:center;
+  font-size:21px;
+}
+.top-link-btn .tl-text .tl-tag{
+  font-family:"DejaVu Sans Condensed",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  font-size:11.5px;
+  font-weight:700;
+  opacity:0.85;
+}
+.top-link-btn.rossa .tl-text .tl-tag,
+.top-link-btn.rossa .tl-icon{ color:#fff; }
+.top-link-btn.verde .tl-text .tl-tag,
+.top-link-btn.verde .tl-icon{ color:#052914; }
+.top-link-btn .tl-text .tl-title{
+  font-family:"DejaVu Sans Condensed",sans-serif;
+  font-weight:700;
+  font-size:19px;
+}
+.top-link-btn.rossa .tl-text .tl-title{ color:#fff; }
+.top-link-btn.verde .tl-text .tl-title{ color:#052914; }
+
+.menu-grid{
+  position:relative; z-index:2;
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(200px,1fr));
+  gap:14px;
+  margin-top:10px;
+}
+.menu-card{
+  display:block;
+  text-decoration:none;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:22px 18px;
+  text-align:center;
+  transition:transform .15s ease, border-color .15s ease, background .15s ease;
+}
+.menu-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--gold-deep);
+  background:var(--panel-strong);
+}
+.menu-card .tag{
+  font-family:"DejaVu Sans Condensed",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  font-size:12px;
+  color:var(--gold);
+  font-weight:700;
+  margin-bottom:6px;
+}
+.menu-card .tnum{
+  font-family:"DejaVu Sans Condensed",sans-serif;
+  font-weight:700;
+  font-size:34px;
+  color:#fff;
+}
+
+.cta-form{
+  position:relative; z-index:2;
+  display:flex; align-items:center; justify-content:center;
+  gap:10px;
+  margin-top:22px;
+  width:100%;
+  background:linear-gradient(90deg, var(--gold) 0%, var(--gold-deep) 100%);
+  color:#241800;
+  text-decoration:none;
+  font-family:"DejaVu Sans Condensed",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  font-weight:700;
+  font-size:17px;
+  padding:16px 20px;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(242,183,5,0.28);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.cta-form:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 22px rgba(242,183,5,0.38);
+}
+.cta-form:active{
+  transform:translateY(0);
+}
+@media(max-width:600px){
+  .cta-form{
+    font-size:15px;
+    padding:16px 14px;
+  }
+}
+.cta-form.squadre-link{
+  margin-top:0;
+  margin-bottom:14px;
+  background:linear-gradient(90deg, var(--red-bright) 0%, var(--red-deep) 100%);
+  color:#fff;
+  box-shadow:0 6px 18px rgba(226,24,54,0.3);
+}
+.cta-form.squadre-link:hover{
+  box-shadow:0 8px 22px rgba(226,24,54,0.4);
+}
+</style></head>
+<body>
+<div class="stage">
+<div class="flag-rule"></div>
+<div class="texture-dots"></div>
+<svg class="mtn-svg" viewBox="0 0 1180 230" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+<polygon points="0,230 0,150 120,65 230,140 340,45 480,160 600,95 760,180 860,115 980,170 1090,85 1180,160 1180,230" fill="#170406"/>
+<polygon points="0,230 0,185 150,130 300,190 460,120 620,195 800,150 950,205 1180,160 1180,230" fill="#230608"/>
+<polygon points="0,230 0,210 200,175 420,215 650,170 900,220 1180,200 1180,230" fill="#33090c"/>
+</svg>
+<div class="header">
+  <div class="badge"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<circle cx="24" cy="24" r="19" fill="none" stroke="#f2b705" stroke-width="3"/>
+<circle cx="24" cy="24" r="4" fill="#c8102e"/>
+<g stroke="#f2b705" stroke-width="2">
+<line x1="24" y1="24" x2="24" y2="6"/><line x1="24" y1="24" x2="24" y2="42"/>
+<line x1="24" y1="24" x2="6" y2="24"/><line x1="24" y1="24" x2="42" y2="24"/>
+<line x1="24" y1="24" x2="11" y2="11"/><line x1="24" y1="24" x2="37" y2="37"/>
+<line x1="24" y1="24" x2="11" y2="37"/><line x1="24" y1="24" x2="37" y2="11"/>
+</g>
+</svg></div>
+  <div class="header-text">
+    <p class="eyebrow">Fanta Vuelta 2026™️</p>
+    <h1>Seleziona la Tappa</h1>
+    <p class="sub">Scegli la tappa per vedere classifiche e risultati</p>
+  </div>
+  <div class="sponsor"><span class="dot"></span>Fanta Vuelta 2026™️</div>
+</div>
+<!-- Le card Maglia Rossa / Maglia Verde verranno riattivate qui a fine stagione. -->
+<div class="menu-grid"><a class="menu-card" href="tappa1.html">
+  <div class="tag">Tappa</div>
+  <div class="tnum">1</div>
+</a></div>
+<a class="cta-form squadre-link" href="squadre.html">🚴 Squadre &amp; Formazioni</a>
+<a class="cta-form" href="https://forms.gle/pKBVRb24htpmjyfS8" target="_blank" rel="noopener">📝 Clicca per sostituire un ciclista</a>
+<div class="footer-note">Fanta Vuelta 2026™️ &middot; aggiornato ad ogni tappa</div>
+</div>
+</body></html>
