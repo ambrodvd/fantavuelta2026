@@ -1,0 +1,335 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fanta Vuelta 2026™️ · Tappa 4</title>
+<style>
+:root{
+  --red:#c8102e;
+  --red-deep:#8c0a20;
+  --red-bright:#e21836;
+  --bg-deep:#1a0509;
+  --bg-mid:#2c0910;
+  --bg-light:#3d0f18;
+  --gold:#f2b705;
+  --gold-deep:#c8930a;
+  --green:#2fbf6a;
+  --green-deep:#1f9950;
+  --lunares:#2e6bc7;
+  --ink:#faf1ee;
+  --ink-dim:#d3a9ab;
+  --line: rgba(255,255,255,0.12);
+  --panel: rgba(255,255,255,0.055);
+  --panel-strong: rgba(255,255,255,0.10);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:"DejaVu Sans","Helvetica Neue",Arial,sans-serif;
+  background:
+    radial-gradient(1100px 480px at 12% -8%, rgba(242,183,5,0.10), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(200,16,46,0.18), transparent 55%),
+    linear-gradient(180deg,var(--bg-deep) 0%, var(--bg-mid) 40%, var(--bg-light) 75%, #4a1420 100%);
+  color:var(--ink);
+}
+.stage{ position:relative; width:100%; max-width:1180px; margin:0 auto; padding:36px 40px 44px; overflow:hidden; }
+@media(max-width:768px){ .stage{ padding:20px 14px 28px; } }
+.flag-rule{ position:absolute; top:0; left:0; width:100%; height:5px; z-index:3;
+  background:linear-gradient(90deg, var(--red) 0%, var(--red) 32%, var(--gold) 32%, var(--gold) 68%, var(--red) 68%, var(--red) 100%); }
+.mtn-svg{ position:absolute; left:0; bottom:0; width:100%; height:210px; z-index:0; opacity:0.5; }
+.header{ position:relative; z-index:2; display:flex; align-items:center; gap:22px; margin-bottom:22px; flex-wrap:wrap; }
+.badge{ width:76px; height:76px; border-radius:50%; background:radial-gradient(circle at 32% 28%, #5a1522, var(--bg-deep) 70%); border:4px solid var(--gold); display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 0 0 4px rgba(242,183,5,0.14); }
+.badge svg{width:42px;height:42px;}
+.header-text .eyebrow{ font-family:"DejaVu Sans Condensed",sans-serif; text-transform:uppercase; letter-spacing:0.14em; font-size:13px; color:var(--gold); font-weight:700; margin:0 0 4px; }
+.header-text h1{ margin:0; font-family:"DejaVu Sans Condensed",sans-serif; font-weight:700; font-size:30px; letter-spacing:0.01em; color:#fff; text-transform:uppercase; }
+.header-text .sub{ margin:4px 0 0; font-size:15px; color:var(--ink-dim); }
+.sponsor{ margin-left:auto; background:#fff; color:var(--red-deep); font-family:"DejaVu Sans Condensed",sans-serif; font-weight:700; letter-spacing:0.03em; font-size:20px; padding:10px 20px; border-radius:6px; display:flex; align-items:center; gap:8px; box-shadow:0 6px 18px rgba(0,0,0,0.25); }
+.sponsor .dot{width:10px;height:10px;border-radius:50%;background:var(--gold-deep);}
+.menu-back{ display:inline-block; margin-bottom:18px; color:var(--gold); text-decoration:none; font-family:"DejaVu Sans Condensed",sans-serif; font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; }
+
+/* Tab nav */
+.tab-nav{ position:relative; z-index:2; display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
+.tab-btn{
+  font-family:"DejaVu Sans Condensed",sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;
+  font-size:14px; padding:10px 16px; border-radius:9px; border:1px solid var(--line);
+  background:var(--panel); color:var(--ink-dim); cursor:pointer; white-space:normal;
+}
+.tab-btn.active{ background:linear-gradient(90deg, var(--red-bright), var(--red-deep)); color:#fff; border-color:transparent; }
+.tab-panel{ display:none; position:relative; z-index:2; }
+.tab-panel.active{ display:block; }
+
+/* Card 1 — Ciclisti di Giornata */
+.day-grid{
+  display:grid;
+  grid-template-areas: "top10" "gpm" "rossa" "sprint";
+  gap:16px;
+}
+@media(min-width:769px){
+  .day-grid{
+    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-areas:
+      "top10 rossa"
+      "top10 sprint"
+      "gpm   gpm";
+  }
+}
+.area-top10{ grid-area: top10; }
+.area-gpm{ grid-area: gpm; }
+.area-rossa{ grid-area: rossa; }
+.area-sprint{ grid-area: sprint; }
+
+.panel{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 16px 10px; }
+.panel h3{ margin:0 0 10px; font-family:"DejaVu Sans Condensed",sans-serif; text-transform:uppercase; letter-spacing:0.06em; font-size:14px; color:var(--gold); border-bottom:1px solid var(--line); padding-bottom:8px; display:flex; align-items:center; gap:8px; }
+.panel h3 .jersey-dot{ width:12px; height:12px; border-radius:50%; display:inline-block; }
+.jersey-dot.rossa{ background:var(--red-bright); }
+.jersey-dot.verde{ background:var(--green); }
+.jersey-dot.pois{ background:var(--lunares); }
+
+.mini-row{ display:grid; grid-template-columns:28px 1fr auto; padding:6px 10px; font-size:14px; border-radius:5px; }
+.mini-row.alt{ background:var(--panel-strong); }
+.mini-row .mpos{ color:var(--ink-dim); font-weight:700; font-family:"DejaVu Sans Condensed",sans-serif; }
+.mini-row .mname{ color:#fff; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.mini-row .mpts{ color:var(--gold); font-weight:700; text-align:right; }
+.empty-hint{ font-size:13px; color:var(--ink-dim); padding:6px 4px; font-style:italic; }
+
+.gpm-grid{ display:grid; grid-template-columns:1fr; gap:12px; }
+@media(min-width:769px) and (max-width:1024px){ .gpm-grid{ grid-template-columns:1fr 1fr; } }
+@media(min-width:1025px){ .gpm-grid{ grid-template-columns:repeat(4,1fr); } }
+
+/* Card 2 — Squadra per squadra */
+.team-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
+@media(min-width:1025px){ .team-grid{ grid-template-columns:repeat(3, 1fr); } }
+.team-card{ background:var(--panel); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+.team-card.leader-card{ border-color:var(--red-bright); box-shadow:0 0 0 1px rgba(226,24,54,0.35); }
+.team-card-head{ display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:var(--panel-strong); }
+.team-card.leader-card .team-card-head{ background:linear-gradient(90deg,var(--red-bright),var(--red-deep)); }
+.team-card-head .tname{ font-weight:700; font-size:16px; color:#fff; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.team-card-head .tpts{ font-family:"DejaVu Sans Condensed",sans-serif; font-weight:700; font-size:19px; color:var(--gold); flex-shrink:0; margin-left:8px; }
+.team-card.leader-card .tpts{ color:#fff; }
+.team-card-ds{ font-size:12.5px; color:var(--ink-dim); padding:7px 16px 0; }
+.team-card.leader-card .team-card-ds{ color:rgba(255,255,255,0.8); background:linear-gradient(90deg,var(--red-bright),var(--red-deep)); padding-top:5px; padding-bottom:3px; }
+.rider-list{ padding:9px 12px 12px; }
+.rider-row{ display:flex; justify-content:space-between; gap:8px; font-size:14px; padding:3.5px 8px; border-radius:4px; }
+.rider-row:nth-child(even){ background:rgba(255,255,255,0.035); }
+.rider-row .rname{ color:#f2dedf; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.rider-row .rpts{ color:var(--gold); font-weight:700; flex-shrink:0; }
+.rider-row.zero .rpts{ color:var(--ink-dim); font-weight:400; }
+
+/* Card 3 — Riepilogo */
+.rp-row{ display:grid; grid-template-columns: 40px 1fr auto; align-items:center; column-gap:14px; padding:10px 16px; border-radius:8px; margin-bottom:3px; }
+.rp-row.alt{ background:var(--panel); }
+.rp-row.leader{ background:linear-gradient(90deg, var(--red-bright), var(--red-deep)); box-shadow:0 4px 14px rgba(200,16,46,0.3); margin-bottom:6px; }
+.rp-row.leader .rp-pos, .rp-row.leader .rp-team, .rp-row.leader .rp-ds{ color:#fff; }
+.rp-pos{ font-family:"DejaVu Sans Condensed",sans-serif; font-weight:700; font-size:18px; color:#fff; text-align:center; }
+.rp-team-block{ display:flex; flex-direction:column; min-width:0; }
+.rp-team{ font-weight:700; font-size:15.5px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.rp-ds{ font-size:12px; color:var(--ink-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.rp-vals{ display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+@media(max-width:768px){ .rp-vals{ gap:5px; } .rp-row{ column-gap:8px; padding:10px 10px; } }
+.rp-item{ display:flex; flex-direction:column; align-items:flex-end; }
+.rp-val{ font-family:"DejaVu Sans Condensed",sans-serif; font-weight:700; font-size:18px; color:#fff; min-width:44px; text-align:right; }
+.rp-lbl{ font-size:9.5px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.05em; }
+.rp-totale{ background:var(--gold) !important; color:#241800 !important; border-radius:6px; padding:2px 9px; min-width:44px; }
+.rp-piazz{ background:var(--green) !important; color:#052914 !important; border-radius:6px; padding:2px 9px; min-width:44px; }
+
+/* Card 4/5 — classifiche */
+.board{ position:relative; z-index:2; }
+.row{ display:grid; grid-template-columns: 46px 1fr auto; align-items:center; column-gap:16px; padding:9px 18px; border-radius:8px; margin-bottom:3px; }
+.row.alt{ background:var(--panel); }
+.row.leader-red{ background:linear-gradient(90deg, var(--red-bright), var(--red-deep)); box-shadow:0 4px 14px rgba(200,16,46,0.35); margin-bottom:6px; }
+.row.leader-green{ background:linear-gradient(90deg, var(--green), var(--green-deep)); box-shadow:0 4px 14px rgba(0,0,0,0.2); margin-bottom:6px; }
+.row.leader-red .pos, .row.leader-red .team{ color:#fff; } .row.leader-red .ds{ color:rgba(255,255,255,0.75); }
+.row.leader-green .pos, .row.leader-green .team, .row.leader-green .ds{ color:#052914; }
+.pos{ font-family:"DejaVu Sans Condensed",sans-serif; font-weight:700; font-size:19px; color:#fff; text-align:center; }
+.team-block{ display:flex; flex-direction:column; min-width:0; }
+.team{ font-weight:700; font-size:16.5px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ds{ font-size:12.5px; color:var(--ink-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pts-block{ display:flex; align-items:baseline; gap:10px; justify-content:flex-end; flex-wrap:wrap; }
+.pts{ font-family:"DejaVu Sans Condensed",sans-serif; font-weight:700; font-size:20px; color:#fff; min-width:52px; text-align:right; }
+.pts-totale{ background:var(--gold) !important; color:#241800 !important; border-radius:6px; padding:2px 10px; min-width:52px; }
+.pts-item{ display:flex; flex-direction:column; align-items:flex-end; }
+.pts-label{ font-size:10.5px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.06em; }
+.stage-select{ font-family:"DejaVu Sans Condensed",sans-serif; font-size:15px; font-weight:700; background:var(--panel-strong); color:#fff; border:1px solid var(--line); border-radius:8px; padding:9px 14px; margin:0 0 16px; width:100%; max-width:280px; }
+
+.footer-note{ margin-top:22px; font-size:11.5px; color:var(--ink-dim); text-align:right; position:relative; z-index:2; }
+
+/* Mobile font/padding rules for tabs */
+@media(max-width:768px){
+  .tab-btn{ font-size:14px; padding:10px 14px; }
+}
+</style></head>
+<body>
+<div class="stage">
+<div class="flag-rule"></div>
+<svg class="mtn-svg" viewBox="0 0 1180 210" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+<polygon points="0,210 0,140 120,60 230,130 340,40 480,150 600,90 760,170 860,110 980,160 1090,80 1180,150 1180,210" fill="#170406"/>
+<polygon points="0,210 0,170 150,120 300,175 460,110 620,180 800,140 950,190 1180,150 1180,210" fill="#230608"/>
+</svg>
+<a class="menu-back" href="index.html">&larr; Torna al menu</a>
+<div class="header">
+  <div class="badge"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<circle cx="24" cy="24" r="19" fill="none" stroke="#f2b705" stroke-width="3"/>
+<circle cx="24" cy="24" r="4" fill="#c8102e"/>
+<g stroke="#f2b705" stroke-width="2">
+<line x1="24" y1="24" x2="24" y2="6"/><line x1="24" y1="24" x2="24" y2="42"/>
+<line x1="24" y1="24" x2="6" y2="24"/><line x1="24" y1="24" x2="42" y2="24"/>
+<line x1="24" y1="24" x2="11" y2="11"/><line x1="24" y1="24" x2="37" y2="37"/>
+<line x1="24" y1="24" x2="11" y2="37"/><line x1="24" y1="24" x2="37" y2="11"/>
+</g>
+</svg></div>
+  <div class="header-text">
+    <p class="eyebrow">Fanta Vuelta 2026™️ · Tappa 4</p>
+    <h1>Tappa 4</h1>
+    <p class="sub">Ciclisti, squadre e classifiche dopo la quarta tappa</p>
+  </div>
+  <div class="sponsor"><span class="dot"></span>Fanta Vuelta 2026™️</div>
+</div>
+
+<div class="tab-nav" id="tab-nav">
+  <button class="tab-btn active" data-tab="ciclisti">Ciclisti di Giornata</button>
+  <button class="tab-btn" data-tab="squadre">Squadra per Squadra</button>
+  <button class="tab-btn" data-tab="riepilogo">Riepilogo Giornata</button>
+  <button class="tab-btn" data-tab="generale">Classifica Generale</button>
+  <button class="tab-btn" data-tab="punti">Classifica a Punti</button>
+</div>
+
+<div class="tab-panel active" id="panel-ciclisti">
+  <div class="day-grid">
+    <div class="area-top10 panel">
+      <h3>Top 10 Tappa</h3>
+      <div id="top10-list"></div>
+    </div>
+    <div class="area-rossa panel">
+      <h3><span class="jersey-dot rossa"></span>Maglia Rossa di Giornata</h3>
+      <div id="rossa-list"></div>
+    </div>
+    <div class="area-sprint panel">
+      <h3>Sprint</h3>
+      <div id="sprint-list"></div>
+    </div>
+    <div class="area-gpm panel">
+      <h3><span class="jersey-dot pois"></span>Gran Premio della Montagna (Maglia a Pois)</h3>
+      <div class="gpm-grid" id="gpm-grid"></div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-panel" id="panel-squadre">
+  <div class="team-grid" id="team-grid"></div>
+</div>
+
+<div class="tab-panel" id="panel-riepilogo">
+  <div id="riepilogo-list"></div>
+</div>
+
+<div class="tab-panel" id="panel-generale">
+  <div id="generale-container"></div>
+</div>
+
+<div class="tab-panel" id="panel-punti">
+  <div id="punti-container"></div>
+</div>
+
+<div class="footer-note">Fanta Vuelta 2026™️ &middot; aggiornato ad ogni tappa</div>
+</div>
+<script>
+const TOP10=[{"pos": 1, "nome": "Pogačar Tadej", "punti": 30}, {"pos": 2, "nome": "Widar Jarno", "punti": 20}, {"pos": 3, "nome": "Gall Felix", "punti": 10}, {"pos": 4, "nome": "Onley Oscar", "punti": 7}, {"pos": 5, "nome": "Kuss Sepp", "punti": 6}, {"pos": 6, "nome": "Mas Enric", "punti": 5}, {"pos": 7, "nome": "Roglič Primož", "punti": 4}, {"pos": 8, "nome": "Skjelmose Mattias", "punti": 3}, {"pos": 9, "nome": "Carapaz Richard", "punti": 2}, {"pos": 10, "nome": "Mühlberger Gregor", "punti": 1}];
+const MAGLIA_ROSSA=[{"nome": "Pogačar Tadej", "punti": 5}];
+const SPRINT=[{"pos": 1, "nome": "POGAČAR Tadej", "punti": 8}, {"pos": 2, "nome": "DEBRUYNE Ramses", "punti": 4}, {"pos": 3, "nome": "MÜHLBERGER Gregor", "punti": 2}];
+const GPM=[{"cat": 1, "entries": [{"pos": 1, "nome": "FORTUNATO Lorenzo", "punti": 9}, {"pos": 2, "nome": "DOUBLE Paul", "punti": 7}, {"pos": 3, "nome": "SOSA Iván Ramiro", "punti": 3}]}, {"cat": 1, "entries": [{"pos": 1, "nome": "POGAČAR Tadej", "punti": 9}, {"pos": 2, "nome": "CARAPAZ Richard", "punti": 7}, {"pos": 3, "nome": "SVESTAD-BÅRDSENG Embret", "punti": 3}]}, {"cat": 1, "entries": [{"pos": 1, "nome": "POGAČAR Tadej", "punti": 9}, {"pos": 2, "nome": "KUSS Sepp", "punti": 7}, {"pos": 3, "nome": "GALL Felix", "punti": 3}]}, {"cat": 3, "entries": [{"pos": 1, "nome": "POGAČAR Tadej", "punti": 5}, {"pos": 2, "nome": "ONLEY Oscar", "punti": 3}, {"pos": 3, "nome": "GALL Felix", "punti": 1}]}];
+const TEAMS=[{"squadra": "Team Gallo", "ds": "Giorgio Verduci", "totale": 66, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "VAN AERT Wout", "punti": 0}, {"nome": "ALMEIDA João", "punti": 0}, {"nome": "BRENNER Marco", "punti": 0}, {"nome": "HAYTER Ethan", "punti": 0}, {"nome": "BILBAO Pello", "punti": 0}, {"nome": "DAINESE Alberto", "punti": 0}, {"nome": "GARCÍA PIERNA Raúl", "punti": 0}, {"nome": "VALTER Attila", "punti": 0}, {"nome": "GAFFURI Mattia", "punti": 0}, {"nome": "MOLARD Rudy", "punti": 0}]}, {"squadra": "EPO E SOLFITI", "ds": "Gabriele Lanza", "totale": 70, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "VAN AERT Wout", "punti": 0}, {"nome": "ROGLIČ Primož", "punti": 4}, {"nome": "RICCITELLO Matthew", "punti": 0}, {"nome": "NYS Thibau", "punti": 0}, {"nome": "LANDA Mikel", "punti": 0}, {"nome": "BUSATTO Francesco", "punti": 0}, {"nome": "CASTRILLO Pablo", "punti": 0}, {"nome": "WEISS Fabian", "punti": 0}, {"nome": "VALTER Attila", "punti": 0}, {"nome": "MOSCON Gianni", "punti": 0}]}, {"squadra": "Cavioni Cereali Sementi e Mangimi", "ds": "Ulisse Bastianelli", "totale": 71, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "MEEUS Jordi", "punti": 0}, {"nome": "MAS Enric", "punti": 5}, {"nome": "TULETT Ben", "punti": 0}, {"nome": "ARMIRAIL Bruno", "punti": 0}, {"nome": "ZANA Filippo", "punti": 0}, {"nome": "ALBANESE Vincenzo", "punti": 0}, {"nome": "MARTIN Guillaume", "punti": 0}, {"nome": "HIRT Jan", "punti": 0}, {"nome": "LE GAC Olivier", "punti": 0}, {"nome": "WEISS Fabian", "punti": 0}]}, {"squadra": "Los expertos", "ds": "Bruno Di Benedetto", "totale": 71, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "VAN AERT Wout", "punti": 0}, {"nome": "MAS Enric", "punti": 5}, {"nome": "NORDHAGEN Jørgen", "punti": 0}, {"nome": "ROMEO Iván", "punti": 0}, {"nome": "BILBAO Pello", "punti": 0}, {"nome": "ROMELE Alessandro", "punti": 0}, {"nome": "LEKNESSUND Andreas", "punti": 0}, {"nome": "CRAPS Lars", "punti": 0}, {"nome": "TORRES Pablo", "punti": 0}, {"nome": "HIRT Jan", "punti": 0}]}, {"squadra": "Lodolandia Epo Cycling", "ds": "Jacopo Lodolo", "totale": 75, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "CARAPAZ Richard", "punti": 9}, {"nome": "GROVES Kaden", "punti": 0}, {"nome": "NORDHAGEN Jørgen", "punti": 0}, {"nome": "HAYTER Ethan", "punti": 0}, {"nome": "PARET-PEINTRE Valentin", "punti": 0}, {"nome": "ALBANESE Vincenzo", "punti": 0}, {"nome": "BISIAUX Léo", "punti": 0}, {"nome": "BERTHET Clément", "punti": 0}, {"nome": "GLOAG Thomas", "punti": 0}, {"nome": "CHUMIL Sergio Geovani", "punti": 0}]}, {"squadra": "Scrocco Touring Club", "ds": "Matteo Collotti", "totale": 82, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "CARAPAZ Richard", "punti": 9}, {"nome": "GROVES Kaden", "punti": 0}, {"nome": "TUCKWELL Luke", "punti": 0}, {"nome": "NYS Thibau", "punti": 0}, {"nome": "DOUBLE Paul", "punti": 7}, {"nome": "DAINESE Alberto", "punti": 0}, {"nome": "BISIAUX Léo", "punti": 0}, {"nome": "GAFFURI Mattia", "punti": 0}, {"nome": "KÄMNA Lennard", "punti": 0}, {"nome": "TILLER Rasmus", "punti": 0}]}, {"squadra": "T-Mobbasta", "ds": "Ale Mayr", "totale": 79, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "VAN AERT Wout", "punti": 0}, {"nome": "KUSS Sepp", "punti": 13}, {"nome": "RICCITELLO Matthew", "punti": 0}, {"nome": "NYS Thibau", "punti": 0}, {"nome": "BILBAO Pello", "punti": 0}, {"nome": "DAINESE Alberto", "punti": 0}, {"nome": "SIVAKOV Pavel", "punti": 0}, {"nome": "GAFFURI Mattia", "punti": 0}, {"nome": "KÄMNA Lennard", "punti": 0}, {"nome": "ROTA Lorenzo", "punti": 0}]}, {"squadra": "Nipples - Vini Fattoni - Bellazè", "ds": "Jacopo Nedbal", "totale": 0, "roster": [{"nome": "PEDERSEN Mads", "punti": 0}, {"nome": "VAN AERT Wout", "punti": 0}, {"nome": "BUITRAGO Santiago", "punti": 0}, {"nome": "RICCITELLO Matthew", "punti": 0}, {"nome": "ROMEO Iván", "punti": 0}, {"nome": "BELOKI Markel", "punti": 0}, {"nome": "DAINESE Alberto", "punti": 0}, {"nome": "CASTRILLO Pablo", "punti": 0}, {"nome": "CALZONI Walter", "punti": 0}, {"nome": "GAROFOLI Gianmarco", "punti": 0}, {"nome": "LABROSSE Jordan", "punti": 0}]}, {"squadra": "Heladeria Chocoloco - Gora ETA", "ds": "Guido Romeo", "totale": 80, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "GALL Felix", "punti": 14}, {"nome": "GROVES Kaden", "punti": 0}, {"nome": "RICCITELLO Matthew", "punti": 0}, {"nome": "ROMEO Iván", "punti": 0}, {"nome": "BELOKI Markel", "punti": 0}, {"nome": "MIQUEL Pau", "punti": 0}, {"nome": "FISHER-BLACK Finn", "punti": 0}, {"nome": "BUCHMANN Emanuel", "punti": 0}, {"nome": "KÄMNA Lennard", "punti": 0}, {"nome": "TORRES Pablo", "punti": 0}]}, {"squadra": "Pippotinho Soudal", "ds": "Davide Cipollini", "totale": 76, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "SKJELMOSE Mattias", "punti": 3}, {"nome": "LAURANCE Axel", "punti": 0}, {"nome": "TULETT Ben", "punti": 0}, {"nome": "TARLING Joshua", "punti": 0}, {"nome": "DOUBLE Paul", "punti": 7}, {"nome": "MULUBRHAN Henok", "punti": 0}, {"nome": "KRON Andreas", "punti": 0}, {"nome": "SUNEKÆR NORSGAARD Mathias", "punti": 0}, {"nome": "HELLEMOSE Asbjørn", "punti": 0}, {"nome": "CHAMBERLAIN Oscar", "punti": 0}]}, {"squadra": "Molla Buni!", "ds": "Davide Ambrosini", "totale": 70, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "VAN AERT Wout", "punti": 0}, {"nome": "ROGLIČ Primož", "punti": 4}, {"nome": "UIJTDEBROEKS Cian", "punti": 0}, {"nome": "ARMIRAIL Bruno", "punti": 0}, {"nome": "PARET-PEINTRE Valentin", "punti": 0}, {"nome": "COVI Alessandro", "punti": 0}, {"nome": "BISIAUX Léo", "punti": 0}, {"nome": "GAFFURI Mattia", "punti": 0}, {"nome": "VERMEERSCH Gianni", "punti": 0}, {"nome": "HOULE Hugo", "punti": 0}]}, {"squadra": "LaVisconteCobram", "ds": "Marco Moscatiello", "totale": 95, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "VAN AERT Wout", "punti": 0}, {"nome": "ALMEIDA João", "punti": 0}, {"nome": "WIDAR Jarno", "punti": 20}, {"nome": "HAYTER Ethan", "punti": 0}, {"nome": "FORTUNATO Lorenzo", "punti": 9}, {"nome": "DAINESE Alberto", "punti": 0}, {"nome": "FISHER-BLACK Finn", "punti": 0}, {"nome": "DVERSNES LAVIK Fredrik", "punti": 0}, {"nome": "GAROFOLI Gianmarco", "punti": 0}, {"nome": "TORRES Pablo", "punti": 0}]}, {"squadra": "R-IGA", "ds": "Alessandro Bonissone", "totale": 104, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "CARAPAZ Richard", "punti": 9}, {"nome": "GROVES Kaden", "punti": 0}, {"nome": "WIDAR Jarno", "punti": 20}, {"nome": "ARMIRAIL Bruno", "punti": 0}, {"nome": "FORTUNATO Lorenzo", "punti": 9}, {"nome": "DAINESE Alberto", "punti": 0}, {"nome": "CASTRILLO Pablo", "punti": 0}, {"nome": "VALTER Attila", "punti": 0}, {"nome": "KÄMNA Lennard", "punti": 0}, {"nome": "VERMEERSCH Gianni", "punti": 0}]}, {"squadra": "Equipo Astio", "ds": "Adriano Astolfi", "totale": 66, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "VAN AERT Wout", "punti": 0}, {"nome": "JOHANNESSEN Tobias Halland", "punti": 0}, {"nome": "RICCITELLO Matthew", "punti": 0}, {"nome": "NYS Thibau", "punti": 0}, {"nome": "PARET-PEINTRE Valentin", "punti": 0}, {"nome": "BUSATTO Francesco", "punti": 0}, {"nome": "LEKNESSUND Andreas", "punti": 0}, {"nome": "HERRADA Jesús", "punti": 0}, {"nome": "KONRAD Patrick", "punti": 0}, {"nome": "KÄMNA Lennard", "punti": 0}]}, {"squadra": "LaRosaRossa", "ds": "Fabio Passi", "totale": 75, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "CARAPAZ Richard", "punti": 9}, {"nome": "GROVES Kaden", "punti": 0}, {"nome": "UIJTDEBROEKS Cian", "punti": 0}, {"nome": "NYS Thibau", "punti": 0}, {"nome": "LANDA Mikel", "punti": 0}, {"nome": "DAINESE Alberto", "punti": 0}, {"nome": "SIVAKOV Pavel", "punti": 0}, {"nome": "BARTA Will", "punti": 0}, {"nome": "MOLARD Rudy", "punti": 0}, {"nome": "VALTER Attila", "punti": 0}]}, {"squadra": "Confusion Mentale Fin de Siècle", "ds": "Davide Grazielli", "totale": 75, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "CARAPAZ Richard", "punti": 9}, {"nome": "GROVES Kaden", "punti": 0}, {"nome": "UIJTDEBROEKS Cian", "punti": 0}, {"nome": "KÜNG Stefan", "punti": 0}, {"nome": "BILBAO Pello", "punti": 0}, {"nome": "DAINESE Alberto", "punti": 0}, {"nome": "MADOUAS Valentin", "punti": 0}, {"nome": "BENNETT George", "punti": 0}, {"nome": "VERMEERSCH Gianni", "punti": 0}, {"nome": "HELLEMOSE Asbjørn", "punti": 0}]}, {"squadra": "A.s.d. Planate", "ds": "Samuele Almagioni", "totale": 79, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "VAN AERT Wout", "punti": 0}, {"nome": "ROGLIČ Primož", "punti": 4}, {"nome": "BRENNER Marco", "punti": 0}, {"nome": "ROMEO Iván", "punti": 0}, {"nome": "FORTUNATO Lorenzo", "punti": 9}, {"nome": "HOFSTETTER Hugo", "punti": 0}, {"nome": "CASTRILLO Pablo", "punti": 0}, {"nome": "GAFFURI Mattia", "punti": 0}, {"nome": "GAROFOLI Gianmarco", "punti": 0}, {"nome": "PICKERING Finlay", "punti": 0}]}, {"squadra": "Alla Bersagliera", "ds": "PierNunzio Pennisi", "totale": 71, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "VAN AERT Wout", "punti": 0}, {"nome": "MAS Enric", "punti": 5}, {"nome": "RICCITELLO Matthew", "punti": 0}, {"nome": "ROMEO Iván", "punti": 0}, {"nome": "RODRÍGUEZ Carlos", "punti": 0}, {"nome": "DE SCHUYTENEER Steffen", "punti": 0}, {"nome": "FISHER-BLACK Finn", "punti": 0}, {"nome": "GAROFOLI Gianmarco", "punti": 0}, {"nome": "MCKENZIE Hamish", "punti": 0}, {"nome": "TORRES Pablo", "punti": 0}]}, {"squadra": "Sborahansgroe", "ds": "Nicolò Mura", "totale": 9, "roster": [{"nome": "PEDERSEN Mads", "punti": 0}, {"nome": "VAN AERT Wout", "punti": 0}, {"nome": "JOHANNESSEN Tobias Halland", "punti": 0}, {"nome": "BRENNER Marco", "punti": 0}, {"nome": "ROMEO Iván", "punti": 0}, {"nome": "FORTUNATO Lorenzo", "punti": 9}, {"nome": "MIQUEL Pau", "punti": 0}, {"nome": "FISHER-BLACK Finn", "punti": 0}, {"nome": "THORNLEY Callum", "punti": 0}, {"nome": "DVERSNES LAVIK Fredrik", "punti": 0}, {"nome": "GAROFOLI Gianmarco", "punti": 0}]}, {"squadra": "Gnaron1995", "ds": "Aaron Medico", "totale": 89, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "GALL Felix", "punti": 14}, {"nome": "GROVES Kaden", "punti": 0}, {"nome": "NORDHAGEN Jørgen", "punti": 0}, {"nome": "TARLING Joshua", "punti": 0}, {"nome": "FORTUNATO Lorenzo", "punti": 9}, {"nome": "ALBANESE Vincenzo", "punti": 0}, {"nome": "KRON Andreas", "punti": 0}, {"nome": "HIRT Jan", "punti": 0}, {"nome": "AZPARREN Xabier Mikel", "punti": 0}, {"nome": "OLIVEIRA Ivo", "punti": 0}]}, {"squadra": "Team BDSM", "ds": "Daniele Ruosi", "totale": 79, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "VAN AERT Wout", "punti": 0}, {"nome": "KUSS Sepp", "punti": 13}, {"nome": "RICCITELLO Matthew", "punti": 0}, {"nome": "NYS Thibau", "punti": 0}, {"nome": "PARET-PEINTRE Valentin", "punti": 0}, {"nome": "DAINESE Alberto", "punti": 0}, {"nome": "LEKNESSUND Andreas", "punti": 0}, {"nome": "HAIG Jack", "punti": 0}, {"nome": "HIRT Jan", "punti": 0}, {"nome": "VERMEERSCH Gianni", "punti": 0}]}, {"squadra": "Squadra Genew", "ds": "Jacopo Volonté", "totale": 88, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "VAN AERT Wout", "punti": 0}, {"nome": "KUSS Sepp", "punti": 13}, {"nome": "BRENNER Marco", "punti": 0}, {"nome": "ROMEO Iván", "punti": 0}, {"nome": "FORTUNATO Lorenzo", "punti": 9}, {"nome": "ALBANESE Vincenzo", "punti": 0}, {"nome": "BISIAUX Léo", "punti": 0}, {"nome": "KÄMNA Lennard", "punti": 0}, {"nome": "HERRADA Jesús", "punti": 0}, {"nome": "TORRES Pablo", "punti": 0}]}, {"squadra": "LIDLL TRIMONI", "ds": "Giacomo Sacchetti", "totale": 75, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "VAN AERT Wout", "punti": 0}, {"nome": "VINE Jay", "punti": 0}, {"nome": "RICCITELLO Matthew", "punti": 0}, {"nome": "TARLING Joshua", "punti": 0}, {"nome": "FORTUNATO Lorenzo", "punti": 9}, {"nome": "DAINESE Alberto", "punti": 0}, {"nome": "BISIAUX Léo", "punti": 0}, {"nome": "VERMEERSCH Gianni", "punti": 0}, {"nome": "TORRES Pablo", "punti": 0}, {"nome": "OLIVEIRA Ivo", "punti": 0}]}, {"squadra": "GxG", "ds": "Giacomo Gambatesa", "totale": 84, "roster": [{"nome": "POGAČAR Tadej", "punti": 66}, {"nome": "CARAPAZ Richard", "punti": 9}, {"nome": "AULAR Orluis", "punti": 0}, {"nome": "RICCITELLO Matthew", "punti": 0}, {"nome": "ROMEO Iván", "punti": 0}, {"nome": "FORTUNATO Lorenzo", "punti": 9}, {"nome": "BRAET Vito", "punti": 0}, {"nome": "BISIAUX Léo", "punti": 0}, {"nome": "BENNETT George", "punti": 0}, {"nome": "URIARTE Diego", "punti": 0}, {"nome": "VALTER Attila", "punti": 0}]}];
+const RIEPILOGO=[{"squadra": "R-IGA", "ds": "Alessandro Bonissone", "punti_generale": 104, "posizione": 1, "bonus": 10, "totale_generale": 114, "punti_piazzamento": 35}, {"squadra": "LaVisconteCobram", "ds": "Marco Moscatiello", "punti_generale": 95, "posizione": 2, "bonus": 0, "totale_generale": 95, "punti_piazzamento": 20}, {"squadra": "Gnaron1995", "ds": "Aaron Medico", "punti_generale": 89, "posizione": 3, "bonus": 0, "totale_generale": 89, "punti_piazzamento": 12}, {"squadra": "Squadra Genew", "ds": "Jacopo Volonté", "punti_generale": 88, "posizione": 4, "bonus": 0, "totale_generale": 88, "punti_piazzamento": 8}, {"squadra": "GxG", "ds": "Giacomo Gambatesa", "punti_generale": 84, "posizione": 5, "bonus": 0, "totale_generale": 84, "punti_piazzamento": 6}, {"squadra": "Scrocco Touring Club", "ds": "Matteo Collotti", "punti_generale": 82, "posizione": 6, "bonus": 0, "totale_generale": 82, "punti_piazzamento": 5}, {"squadra": "Heladeria Chocoloco - Gora ETA", "ds": "Guido Romeo", "punti_generale": 80, "posizione": 7, "bonus": 0, "totale_generale": 80, "punti_piazzamento": 4}, {"squadra": "A.s.d. Planate", "ds": "Samuele Almagioni", "punti_generale": 79, "posizione": 8, "bonus": 0, "totale_generale": 79, "punti_piazzamento": 3}, {"squadra": "Team BDSM", "ds": "Daniele Ruosi", "punti_generale": 79, "posizione": 8, "bonus": 0, "totale_generale": 79, "punti_piazzamento": 3}, {"squadra": "T-Mobbasta", "ds": "Ale Mayr", "punti_generale": 79, "posizione": 8, "bonus": 0, "totale_generale": 79, "punti_piazzamento": 3}, {"squadra": "Pippotinho Soudal", "ds": "Davide Cipollini", "punti_generale": 76, "posizione": 11, "bonus": 0, "totale_generale": 76, "punti_piazzamento": 0}, {"squadra": "Lodolandia Epo Cycling", "ds": "Jacopo Lodolo", "punti_generale": 75, "posizione": 12, "bonus": 0, "totale_generale": 75, "punti_piazzamento": 0}, {"squadra": "LaRosaRossa", "ds": "Fabio Passi", "punti_generale": 75, "posizione": 12, "bonus": 0, "totale_generale": 75, "punti_piazzamento": 0}, {"squadra": "LIDLL TRIMONI", "ds": "Giacomo Sacchetti", "punti_generale": 75, "posizione": 12, "bonus": 0, "totale_generale": 75, "punti_piazzamento": 0}, {"squadra": "Confusion Mentale Fin de Siècle", "ds": "Davide Grazielli", "punti_generale": 75, "posizione": 12, "bonus": 0, "totale_generale": 75, "punti_piazzamento": 0}, {"squadra": "Alla Bersagliera", "ds": "PierNunzio Pennisi", "punti_generale": 71, "posizione": 16, "bonus": 0, "totale_generale": 71, "punti_piazzamento": 0}, {"squadra": "Cavioni Cereali Sementi e Mangimi", "ds": "Ulisse Bastianelli", "punti_generale": 71, "posizione": 16, "bonus": 0, "totale_generale": 71, "punti_piazzamento": 0}, {"squadra": "Los expertos", "ds": "Bruno Di Benedetto", "punti_generale": 71, "posizione": 16, "bonus": 0, "totale_generale": 71, "punti_piazzamento": 0}, {"squadra": "EPO E SOLFITI", "ds": "Gabriele Lanza", "punti_generale": 70, "posizione": 19, "bonus": 0, "totale_generale": 70, "punti_piazzamento": 0}, {"squadra": "Molla Buni!", "ds": "Davide Ambrosini", "punti_generale": 70, "posizione": 19, "bonus": 0, "totale_generale": 70, "punti_piazzamento": 0}, {"squadra": "Team Gallo", "ds": "Giorgio Verduci", "punti_generale": 66, "posizione": 21, "bonus": 0, "totale_generale": 66, "punti_piazzamento": 0}, {"squadra": "Equipo Astio", "ds": "Adriano Astolfi", "punti_generale": 66, "posizione": 21, "bonus": 0, "totale_generale": 66, "punti_piazzamento": 0}, {"squadra": "Sborahansgroe", "ds": "Nicolò Mura", "punti_generale": 9, "posizione": 23, "bonus": 0, "totale_generale": 9, "punti_piazzamento": 0}, {"squadra": "Nipples - Vini Fattoni - Bellazè", "ds": "Jacopo Nedbal", "punti_generale": 0, "posizione": 24, "bonus": 0, "totale_generale": 0, "punti_piazzamento": 0}];
+const CLASSIFICA_GENERALE=[{"pos": 1, "squadra": "LaVisconteCobram", "ds": "Marco Moscatiello", "stages": {"1": 65, "2": 97, "4": 192}}, {"pos": 2, "squadra": "Lodolandia Epo Cycling", "ds": "Jacopo Lodolo", "stages": {"1": 65, "2": 89, "4": 164}}, {"pos": 3, "squadra": "R-IGA", "ds": "Alessandro Bonissone", "stages": {"1": 35, "2": 50, "4": 164}}, {"pos": 4, "squadra": "Heladeria Chocoloco - Gora ETA", "ds": "Guido Romeo", "stages": {"1": 38, "2": 77, "4": 157}}, {"pos": 5, "squadra": "Team Gallo", "ds": "Giorgio Verduci", "stages": {"1": 57, "2": 85, "4": 151}}, {"pos": 6, "squadra": "Squadra Genew", "ds": "Jacopo Volonté", "stages": {"1": 42, "2": 61, "4": 149}}, {"pos": 7, "squadra": "Gnaron1995", "ds": "Aaron Medico", "stages": {"1": 45, "2": 60, "4": 149}}, {"pos": 8, "squadra": "LIDLL TRIMONI", "ds": "Giacomo Sacchetti", "stages": {"1": 52, "2": 71, "4": 146}}, {"pos": 9, "squadra": "GxG", "ds": "Giacomo Gambatesa", "stages": {"1": 40, "2": 62, "4": 146}}, {"pos": 10, "squadra": "Pippotinho Soudal", "ds": "Davide Cipollini", "stages": {"1": 49, "2": 66, "4": 142}}, {"pos": 11, "squadra": "A.s.d. Planate", "ds": "Samuele Almagioni", "stages": {"1": 37, "2": 62, "4": 141}}, {"pos": 12, "squadra": "Scrocco Touring Club", "ds": "Matteo Collotti", "stages": {"1": 40, "2": 55, "4": 137}}, {"pos": 13, "squadra": "Team BDSM", "ds": "Daniele Ruosi", "stages": {"1": 37, "2": 56, "4": 135}}, {"pos": 14, "squadra": "T-Mobbasta", "ds": "Ale Mayr", "stages": {"1": 37, "2": 56, "4": 135}}, {"pos": 15, "squadra": "Alla Bersagliera", "ds": "PierNunzio Pennisi", "stages": {"1": 40, "2": 63, "4": 134}}, {"pos": 16, "squadra": "Molla Buni!", "ds": "Davide Ambrosini", "stages": {"1": 42, "2": 61, "4": 131}}, {"pos": 17, "squadra": "Equipo Astio", "ds": "Adriano Astolfi", "stages": {"1": 37, "2": 61, "4": 127}}, {"pos": 18, "squadra": "Los expertos", "ds": "Bruno Di Benedetto", "stages": {"1": 37, "2": 56, "4": 127}}, {"pos": 19, "squadra": "EPO E SOLFITI", "ds": "Gabriele Lanza", "stages": {"1": 37, "2": 56, "4": 126}}, {"pos": 20, "squadra": "LaRosaRossa", "ds": "Fabio Passi", "stages": {"1": 35, "2": 50, "4": 125}}, {"pos": 21, "squadra": "Confusion Mentale Fin de Siècle", "ds": "Davide Grazielli", "stages": {"1": 35, "2": 50, "4": 125}}, {"pos": 22, "squadra": "Cavioni Cereali Sementi e Mangimi", "ds": "Ulisse Bastianelli", "stages": {"1": 35, "2": 50, "4": 121}}, {"pos": 23, "squadra": "Sborahansgroe", "ds": "Nicolò Mura", "stages": {"1": 12, "2": 62, "4": 71}}, {"pos": 24, "squadra": "Nipples - Vini Fattoni - Bellazè", "ds": "Jacopo Nedbal", "stages": {"1": 2, "2": 13, "4": 13}}];
+const CLASSIFICA_PUNTI=[{"pos": 1, "squadra": "LaVisconteCobram", "ds": "Marco Moscatiello", "stages": {"1": 35, "2": 47, "4": 67}}, {"pos": 2, "squadra": "Lodolandia Epo Cycling", "ds": "Jacopo Lodolo", "stages": {"1": 35, "2": 40, "4": 40}}, {"pos": 3, "squadra": "Sborahansgroe", "ds": "Nicolò Mura", "stages": {"1": 0, "2": 35, "4": 35}}, {"pos": 4, "squadra": "R-IGA", "ds": "Alessandro Bonissone", "stages": {"1": 0, "2": 0, "4": 35}}, {"pos": 5, "squadra": "Heladeria Chocoloco - Gora ETA", "ds": "Guido Romeo", "stages": {"1": 0, "2": 20, "4": 24}}, {"pos": 6, "squadra": "Team Gallo", "ds": "Giorgio Verduci", "stages": {"1": 12, "2": 20, "4": 20}}, {"pos": 7, "squadra": "Gnaron1995", "ds": "Aaron Medico", "stages": {"1": 5, "2": 5, "4": 17}}, {"pos": 8, "squadra": "Squadra Genew", "ds": "Jacopo Volonté", "stages": {"1": 4, "2": 5, "4": 13}}, {"pos": 9, "squadra": "GxG", "ds": "Giacomo Gambatesa", "stages": {"1": 2, "2": 4, "4": 10}}, {"pos": 10, "squadra": "LIDLL TRIMONI", "ds": "Giacomo Sacchetti", "stages": {"1": 8, "2": 9, "4": 9}}, {"pos": 11, "squadra": "A.s.d. Planate", "ds": "Samuele Almagioni", "stages": {"1": 0, "2": 6, "4": 9}}, {"pos": 12, "squadra": "Scrocco Touring Club", "ds": "Matteo Collotti", "stages": {"1": 2, "2": 2, "4": 7}}, {"pos": 13, "squadra": "Pippotinho Soudal", "ds": "Davide Cipollini", "stages": {"1": 6, "2": 6, "4": 6}}, {"pos": 14, "squadra": "Molla Buni!", "ds": "Davide Ambrosini", "stages": {"1": 4, "2": 5, "4": 5}}, {"pos": 15, "squadra": "Alla Bersagliera", "ds": "PierNunzio Pennisi", "stages": {"1": 2, "2": 5, "4": 5}}, {"pos": 16, "squadra": "Equipo Astio", "ds": "Adriano Astolfi", "stages": {"1": 0, "2": 5, "4": 5}}, {"pos": 17, "squadra": "Team BDSM", "ds": "Daniele Ruosi", "stages": {"1": 0, "2": 1, "4": 4}}, {"pos": 18, "squadra": "T-Mobbasta", "ds": "Ale Mayr", "stages": {"1": 0, "2": 1, "4": 4}}, {"pos": 19, "squadra": "EPO E SOLFITI", "ds": "Gabriele Lanza", "stages": {"1": 0, "2": 1, "4": 1}}, {"pos": 20, "squadra": "Los expertos", "ds": "Bruno Di Benedetto", "stages": {"1": 0, "2": 1, "4": 1}}, {"pos": 21, "squadra": "Cavioni Cereali Sementi e Mangimi", "ds": "Ulisse Bastianelli", "stages": {"1": 0, "2": 0, "4": 0}}, {"pos": 22, "squadra": "LaRosaRossa", "ds": "Fabio Passi", "stages": {"1": 0, "2": 0, "4": 0}}, {"pos": 23, "squadra": "Confusion Mentale Fin de Siècle", "ds": "Davide Grazielli", "stages": {"1": 0, "2": 0, "4": 0}}, {"pos": 24, "squadra": "Nipples - Vini Fattoni - Bellazè", "ds": "Jacopo Nedbal", "stages": {"1": 0, "2": 0, "4": 0}}];
+
+function esc(s){ return (s===null||s===undefined) ? '' : String(s); }
+
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Card 1: Top10 + Maglia Rossa di giornata
+document.getElementById('top10-list').innerHTML = TOP10.map((r,i)=>`
+  <div class="mini-row${i%2?' alt':''}"><span class="mpos">${r.pos}</span><span class="mname">${esc(r.nome)}</span><span class="mpts">${r.punti}</span></div>`).join('');
+document.getElementById('rossa-list').innerHTML = MAGLIA_ROSSA.map((r,i)=>`
+  <div class="mini-row${i%2?' alt':''}"><span class="mpos">&#9679;</span><span class="mname">${esc(r.nome)}</span><span class="mpts">${r.punti}</span></div>`).join('') || '<div class="empty-hint">Nessun dato disponibile.</div>';
+
+// Card 2: Squadra per squadra (leader = posizione 1 nel riepilogo)
+const leaderNames = new Set(RIEPILOGO.filter(r=>r.posizione===1).map(r=>r.squadra));
+document.getElementById('team-grid').innerHTML = TEAMS.map(t=>{
+  const isLeader = leaderNames.has(t.squadra);
+  const rows = t.roster.map(r=>`<div class="rider-row${r.punti===0?' zero':''}"><span class="rname">${esc(r.nome)}</span><span class="rpts">${r.punti}</span></div>`).join('');
+  return `<div class="team-card${isLeader?' leader-card':''}">
+    <div class="team-card-head"><span class="tname">${esc(t.squadra)}</span><span class="tpts">${t.totale}</span></div>
+    <div class="team-card-ds">DS: ${esc(t.ds)}</div>
+    <div class="rider-list">${rows}</div>
+  </div>`;
+}).join('');
+
+// Card 3: Riepilogo Giornata — ordine Punti, Bonus, Totale, Piazz.
+document.getElementById('riepilogo-list').innerHTML = RIEPILOGO.map((r,i)=>{
+  const isLeader = r.posizione===1;
+  return `<div class="rp-row${isLeader?' leader':(i%2?' alt':'')}">
+    <div class="rp-pos">${r.posizione}</div>
+    <div class="rp-team-block"><span class="rp-team">${esc(r.squadra)}</span><span class="rp-ds">${esc(r.ds)}</span></div>
+    <div class="rp-vals">
+      <div class="rp-item"><span class="rp-val">${r.punti_generale}</span><span class="rp-lbl">Punti</span></div>
+      <div class="rp-item"><span class="rp-val">${r.bonus}</span><span class="rp-lbl">Bonus</span></div>
+      <div class="rp-item"><span class="rp-val rp-totale">${r.totale_generale}</span><span class="rp-lbl">Totale</span></div>
+      <div class="rp-item"><span class="rp-val rp-piazz">${r.punti_piazzamento}</span><span class="rp-lbl">Piazz.</span></div>
+    </div>
+  </div>`;
+}).join('');
+
+// Card 4 & 5: Classifica Generale / Classifica a Punti con select tappa (scala automaticamente su N tappe)
+function renderClassifica(containerId, data, leaderClass){
+  const stageKeys = Object.keys(data[0].stages).map(k=>parseInt(k,10)).sort((a,b)=>a-b);
+  const lastKey = String(stageKeys[stageKeys.length-1]);
+  let options = stageKeys.map(k=>`<option value="Tappa ${k}">Tappa ${k}</option>`).join('') + `<option value="Totale" selected>Totale</option>`;
+  const rows = data.map((r,i)=>{
+    const isLeader = r.pos===1;
+    const totale = r.stages[lastKey];
+    const stageSpans = stageKeys.map(k=>
+      `<div class="pts-item stage-item" data-label="Tappa ${k}"><span class="pts">${r.stages[String(k)]}</span><span class="pts-label">Tappa ${k}</span></div>`
+    ).join('');
+    const totaleSpan = `<div class="pts-item stage-item" data-label="Totale"><span class="pts pts-totale">${totale}</span><span class="pts-label">Totale</span></div>`;
+    return `<div class="row${isLeader?' '+leaderClass:(i%2?' alt':'')}">
+      <div class="pos">${r.pos}</div>
+      <div class="team-block"><span class="team">${esc(r.squadra)}</span><span class="ds">${esc(r.ds)}</span></div>
+      <div class="pts-block">${stageSpans}${totaleSpan}</div>
+    </div>`;
+  }).join('');
+  document.getElementById(containerId).innerHTML = `<select class="stage-select">${options}</select><div class="board">${rows}</div>`;
+  const select = document.getElementById(containerId).querySelector('select');
+  function applyFilter(){
+    const val = select.value;
+    document.getElementById(containerId).querySelectorAll('.stage-item').forEach(el=>{
+      const lbl = el.dataset.label;
+      el.style.display = (lbl === 'Totale' || lbl === val) ? '' : 'none';
+    });
+  }
+  select.addEventListener('change', applyFilter);
+  applyFilter();
+}
+renderClassifica('generale-container', CLASSIFICA_GENERALE, 'leader-red');
+renderClassifica('punti-container', CLASSIFICA_PUNTI, 'leader-green');
+
+// Sprint
+document.getElementById('sprint-list').innerHTML = SPRINT.length ? SPRINT.map((r,i)=>`
+  <div class="mini-row${i%2?' alt':''}"><span class="mpos">${r.pos}</span><span class="mname">${esc(r.nome)}</span><span class="mpts">${r.punti}</span></div>`).join('') : '<div class="empty-hint">Nessuno sprint speciale in questa tappa.</div>';
+
+// GPM
+document.getElementById('gpm-grid').innerHTML = GPM.length ? GPM.map((g,gi)=>{
+  const entries = g.entries.map((r,i)=>`
+    <div class="mini-row${i%2?' alt':''}"><span class="mpos">${r.pos}</span><span class="mname">${esc(r.nome)}</span><span class="mpts">${r.punti}</span></div>`).join('');
+  return `<div class="panel gpm-card">
+    <h3><span class="jersey-dot pois"></span>GPM &middot; Cat. ${g.cat}</h3>
+    ${entries}
+  </div>`;
+}).join('') : '<div class="empty-hint">Nessun GPM in questa tappa.</div>';
+</script>
+</body></html>
