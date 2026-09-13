@@ -300,7 +300,7 @@ body{
 .top-links-grid{
   position:relative; z-index:2;
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
   gap:14px;
   margin-bottom:24px;
 }
@@ -352,6 +352,13 @@ body{
 }
 .top-link-btn.rossa .tl-text .tl-title{ color:#fff; }
 .top-link-btn.verde .tl-text .tl-title{ color:#052914; }
+.top-link-btn.extra{
+  background:linear-gradient(90deg, var(--lunares) 0%, #1c4a91 100%);
+  box-shadow:0 6px 18px rgba(46,107,199,0.30);
+}
+.top-link-btn.extra .tl-text .tl-tag,
+.top-link-btn.extra .tl-icon{ color:#fff; }
+.top-link-btn.extra .tl-text .tl-title{ color:#fff; }
 
 .menu-grid{
   position:relative; z-index:2;
@@ -467,7 +474,20 @@ body{
   </div>
   <div class="sponsor"><span class="dot"></span>Fanta Vuelta 2026™️</div>
 </div>
-<!-- Le card Maglia Rossa / Maglia Verde verranno riattivate qui a fine stagione. -->
+<div class="top-links-grid">
+  <a class="top-link-btn rossa" href="classifica-generale.html">
+    <span class="tl-icon">🔴</span>
+    <span class="tl-text"><span class="tl-tag">Classifica Generale</span><br><span class="tl-title">Maglia Rossa</span></span>
+  </a>
+  <a class="top-link-btn verde" href="classifica-punti.html">
+    <span class="tl-icon">🟢</span>
+    <span class="tl-text"><span class="tl-tag">Classifica a Punti</span><br><span class="tl-title">Maglia Verde</span></span>
+  </a>
+  <a class="top-link-btn extra" href="extra.html">
+    <span class="tl-icon">⭐</span>
+    <span class="tl-text"><span class="tl-tag">Bonus Maglie Finali</span><br><span class="tl-title">Extra</span></span>
+  </a>
+</div>
 <div class="menu-grid"><a class="menu-card" href="tappa21.html">
   <div class="tag">Tappa</div>
   <div class="tnum">21</div>

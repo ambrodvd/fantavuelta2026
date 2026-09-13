@@ -1,0 +1,137 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fanta Vuelta 2026™️ · Classifica a Punti</title>
+<style>
+:root{
+  --bg-deep:#1a0509; --bg-mid:#2c0910; --bg-light:#3d0f18;
+  --red:#c8102e; --red-bright:#e21836; --red-deep:#8c0a20;
+  --gold:#f2b705; --gold-deep:#c8930a;
+  --green:#2fbf6a; --green-deep:#1f9950;
+  --lunares:#2e6bc7;
+  --ink:#faf1ee; --ink-dim:#d3a9ab;
+  --line: rgba(255,255,255,0.10);
+  --panel: rgba(255,255,255,0.045);
+  --panel-strong: rgba(255,255,255,0.08);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:"DejaVu Sans","Helvetica Neue",Arial,sans-serif;
+  background:
+    radial-gradient(1200px 500px at 15% -10%, rgba(255,255,255,0.06), transparent 60%),
+    linear-gradient(180deg,var(--bg-deep) 0%, var(--bg-mid) 40%, var(--bg-light) 75%, #4a1420 100%);
+  color:var(--ink);
+}
+.stage{ position:relative; width:100%; max-width:1180px; margin:0 auto; padding:36px 40px 44px; overflow:hidden; }
+@media(max-width:768px){ .stage{ padding:20px 14px 28px; } }
+.flag-rule{ position:absolute; top:0; left:0; width:100%; height:5px; z-index:3;
+  background:linear-gradient(90deg, var(--red) 0%, var(--red) 32%, var(--gold) 32%, var(--gold) 68%, var(--red) 68%, var(--red) 100%); }
+.mtn-svg{ position:absolute; left:0; bottom:0; width:100%; height:210px; z-index:0; opacity:0.5; }
+.header{ position:relative; z-index:2; display:flex; align-items:center; gap:22px; margin-bottom:22px; flex-wrap:wrap; }
+.badge{ width:76px; height:76px; border-radius:50%; background:radial-gradient(circle at 32% 28%, #5a1522, var(--bg-deep) 70%); border:4px solid var(--gold); display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 0 0 4px rgba(242,183,5,0.14); }
+.badge svg{width:42px;height:42px;}
+.header-text .eyebrow{ font-family:"DejaVu Sans Condensed",sans-serif; text-transform:uppercase; letter-spacing:0.14em; font-size:13px; color:var(--gold); font-weight:700; margin:0 0 4px; }
+.header-text h1{ margin:0; font-family:"DejaVu Sans Condensed",sans-serif; font-weight:700; font-size:30px; letter-spacing:0.01em; color:#fff; text-transform:uppercase; }
+.header-text .sub{ margin:4px 0 0; font-size:15px; color:var(--ink-dim); }
+.sponsor{ margin-left:auto; background:#fff; color:var(--red-deep); font-family:"DejaVu Sans Condensed",sans-serif; font-weight:700; letter-spacing:0.03em; font-size:20px; padding:10px 20px; border-radius:6px; display:flex; align-items:center; gap:8px; box-shadow:0 6px 18px rgba(0,0,0,0.25); }
+.sponsor .dot{width:10px;height:10px;border-radius:50%;background:var(--gold-deep);}
+.menu-back{ display:inline-block; margin-bottom:18px; color:var(--gold); text-decoration:none; font-family:"DejaVu Sans Condensed",sans-serif; font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; }
+.board{ position:relative; z-index:2; }
+.row{ display:grid; grid-template-columns: 46px 1fr auto; align-items:center; column-gap:16px; padding:9px 18px; border-radius:8px; margin-bottom:3px; }
+@media(max-width:768px){ .row{ padding:9px 10px; column-gap:8px; grid-template-columns:34px 1fr auto; } }
+.row.alt{ background:var(--panel); }
+.pos{ font-family:"DejaVu Sans Condensed",sans-serif; font-weight:700; font-size:19px; color:#fff; text-align:center; }
+.team-block{ display:flex; flex-direction:column; min-width:0; }
+.team{ font-weight:700; font-size:16.5px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ds{ font-size:12.5px; color:var(--ink-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pts-block{ display:flex; align-items:baseline; gap:10px; justify-content:flex-end; flex-wrap:wrap; }
+.pts{ font-family:"DejaVu Sans Condensed",sans-serif; font-weight:700; font-size:20px; color:#fff; min-width:52px; text-align:right; }
+.pts-totale{ background:var(--gold) !important; color:#2a1f00 !important; border-radius:6px; padding:2px 10px; min-width:52px; }
+.pts-extra{ background:var(--lunares) !important; color:#fff !important; border-radius:6px; padding:2px 10px; min-width:52px; }
+.pts-item{ display:flex; flex-direction:column; align-items:flex-end; }
+.pts-label{ font-size:10.5px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.06em; }
+.stage-select{ font-family:"DejaVu Sans Condensed",sans-serif; font-size:15px; font-weight:700; background:var(--panel-strong); color:#fff; border:1px solid var(--line); border-radius:8px; padding:9px 14px; margin:0 0 16px; width:100%; max-width:280px; }
+.footer-note{ margin-top:22px; font-size:11.5px; color:var(--ink-dim); text-align:right; position:relative; z-index:2; }
+.row.leader{ background:linear-gradient(90deg, var(--green) 0%, var(--green-deep) 100%); box-shadow:0 4px 14px rgba(47,191,106,0.28); margin-bottom:6px; }
+.row.leader .pos, .row.leader .team, .row.leader .pts{ color:#052914; }
+.row.leader .ds{ color:#052914; opacity:0.75; }
+</style></head>
+<body>
+<div class="stage">
+<div class="flag-rule"></div>
+<svg class="mtn-svg" viewBox="0 0 1180 210" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+<polygon points="0,210 0,140 120,60 230,130 340,40 480,150 600,90 760,170 860,110 980,160 1090,80 1180,150 1180,210" fill="#170406"/>
+<polygon points="0,210 0,170 150,120 300,175 460,110 620,180 800,140 950,190 1180,150 1180,210" fill="#230608"/>
+</svg>
+<a class="menu-back" href="index.html">&larr; Torna al menu</a>
+<div class="header">
+  <div class="badge"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<circle cx="24" cy="24" r="19" fill="none" stroke="#f2b705" stroke-width="3"/>
+<circle cx="24" cy="24" r="4" fill="#c8102e"/>
+<g stroke="#f2b705" stroke-width="2">
+<line x1="24" y1="24" x2="24" y2="6"/><line x1="24" y1="24" x2="24" y2="42"/>
+<line x1="24" y1="24" x2="6" y2="24"/><line x1="24" y1="24" x2="42" y2="24"/>
+<line x1="24" y1="24" x2="11" y2="11"/><line x1="24" y1="24" x2="37" y2="37"/>
+<line x1="24" y1="24" x2="11" y2="37"/><line x1="24" y1="24" x2="37" y2="11"/>
+</g>
+</svg></div>
+  <div class="header-text">
+    <p class="eyebrow">Fanta Vuelta 2026™️ · Maglia Verde</p>
+    <h1>Classifica a Punti</h1>
+    <p class="sub">Classifica a punti squadra per squadra, tappa dopo tappa</p>
+  </div>
+  <div class="sponsor"><span class="dot"></span>Fanta Vuelta 2026™️</div>
+</div>
+
+<div id="classifica-container"></div>
+
+<div class="footer-note">Fanta Vuelta 2026™️ &middot; aggiornato ad ogni tappa</div>
+</div>
+<script>
+const DATA = [{"squadra": "Lodolandia Epo Cycling", "ds": "Jacopo Lodolo", "stages": {"1": 35, "2": 40, "4": 40, "5": 60, "6": 60, "7": 60, "8": 60, "9": 60, "10": 60, "11": 95, "12": 115, "13": 135, "14": 170, "15": 170, "16": 205, "17": 240, "18": 240, "19": 275, "20": 275, "21": 280}, "totale": 280, "pos": 1}, {"squadra": "Los expertos", "ds": "Bruno Di Benedetto", "stages": {"1": 0, "2": 1, "4": 1, "5": 5, "6": 40, "7": 52, "8": 64, "9": 99, "10": 111, "11": 116, "12": 128, "13": 128, "14": 129, "15": 164, "16": 172, "17": 180, "18": 181, "19": 189, "20": 195, "21": 230}, "totale": 230, "pos": 2}, {"squadra": "Sborahansgroe", "ds": "Nicolò Mura", "stages": {"1": 0, "2": 35, "4": 35, "5": 35, "6": 35, "7": 43, "8": 63, "9": 63, "10": 67, "11": 70, "12": 70, "13": 71, "14": 91, "15": 91, "16": 91, "17": 95, "18": 115, "19": 115, "20": 150, "21": 170}, "totale": 170, "pos": 3}, {"squadra": "LaVisconteCobram", "ds": "Marco Moscatiello", "stages": {"1": 35, "2": 47, "4": 67, "5": 79, "6": 85, "7": 86, "8": 89, "9": 89, "10": 93, "11": 105, "12": 110, "13": 115, "14": 117, "15": 117, "16": 119, "17": 120, "18": 132, "19": 132, "20": 133, "21": 134}, "totale": 134, "pos": 4}, {"squadra": "Nipples - Vini Fattoni - Bellazè", "ds": "Jacopo Nedbal", "stages": {"1": 0, "2": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 35, "9": 43, "10": 44, "11": 49, "12": 84, "13": 86, "14": 92, "15": 100, "16": 102, "17": 103, "18": 103, "19": 123, "20": 123, "21": 125}, "totale": 125, "pos": 5}, {"squadra": "Cavioni Cereali Sementi e Mangimi", "ds": "Ulisse Bastianelli", "stages": {"1": 0, "2": 0, "4": 0, "5": 35, "6": 47, "7": 47, "8": 53, "9": 65, "10": 85, "11": 85, "12": 85, "13": 85, "14": 88, "15": 88, "16": 100, "17": 112, "18": 112, "19": 118, "20": 118, "21": 119}, "totale": 119, "pos": 6}, {"squadra": "Alla Bersagliera", "ds": "PierNunzio Pennisi", "stages": {"1": 2, "2": 5, "4": 5, "5": 5, "6": 40, "7": 41, "8": 49, "9": 69, "10": 73, "11": 73, "12": 81, "13": 85, "14": 85, "15": 88, "16": 96, "17": 102, "18": 107, "19": 110, "20": 110, "21": 116}, "totale": 116, "pos": 7}, {"squadra": "Equipo Astio", "ds": "Adriano Astolfi", "stages": {"1": 0, "2": 5, "4": 5, "5": 5, "6": 6, "7": 41, "8": 44, "9": 44, "10": 52, "11": 52, "12": 52, "13": 64, "14": 64, "15": 84, "16": 84, "17": 85, "18": 85, "19": 89, "20": 94, "21": 106}, "totale": 106, "pos": 8}, {"squadra": "Scrocco Touring Club", "ds": "Matteo Collotti", "stages": {"1": 2, "2": 2, "4": 7, "5": 7, "6": 7, "7": 7, "8": 7, "9": 7, "10": 8, "11": 28, "12": 28, "13": 28, "14": 28, "15": 28, "16": 48, "17": 83, "18": 83, "19": 83, "20": 83, "21": 88}, "totale": 88, "pos": 9}, {"squadra": "EPO E SOLFITI", "ds": "Gabriele Lanza", "stages": {"1": 0, "2": 1, "4": 1, "5": 1, "6": 7, "7": 8, "8": 11, "9": 17, "10": 52, "11": 52, "12": 55, "13": 55, "14": 55, "15": 61, "16": 61, "17": 62, "18": 65, "19": 66, "20": 86, "21": 86}, "totale": 86, "pos": 10}, {"squadra": "Team BDSM", "ds": "Daniele Ruosi", "stages": {"1": 0, "2": 1, "4": 4, "5": 5, "6": 5, "7": 25, "8": 28, "9": 28, "10": 36, "11": 36, "12": 36, "13": 48, "14": 48, "15": 68, "16": 70, "17": 71, "18": 71, "19": 77, "20": 80, "21": 80}, "totale": 80, "pos": 11}, {"squadra": "Molla Buni!", "ds": "Davide Ambrosini", "stages": {"1": 4, "2": 5, "4": 5, "5": 5, "6": 11, "7": 17, "8": 21, "9": 26, "10": 26, "11": 26, "12": 32, "13": 67, "14": 67, "15": 71, "16": 71, "17": 72, "18": 78, "19": 78, "20": 78, "21": 78}, "totale": 78, "pos": 12}, {"squadra": "Team Gallo", "ds": "Giorgio Verduci", "stages": {"1": 12, "2": 20, "4": 20, "5": 32, "6": 32, "7": 35, "8": 38, "9": 38, "10": 38, "11": 46, "12": 46, "13": 46, "14": 51, "15": 51, "16": 53, "17": 54, "18": 62, "19": 74, "20": 74, "21": 75}, "totale": 75, "pos": 13}, {"squadra": "Squadra Genew", "ds": "Jacopo Volonté", "stages": {"1": 4, "2": 5, "4": 13, "5": 19, "6": 25, "7": 30, "8": 33, "9": 33, "10": 33, "11": 36, "12": 36, "13": 42, "14": 62, "15": 62, "16": 65, "17": 66, "18": 66, "19": 66, "20": 70, "21": 70}, "totale": 70, "pos": 14}, {"squadra": "A.s.d. Planate", "ds": "Samuele Almagioni", "stages": {"1": 0, "2": 6, "4": 9, "5": 9, "6": 17, "7": 19, "8": 25, "9": 28, "10": 28, "11": 34, "12": 36, "13": 36, "14": 56, "15": 56, "16": 60, "17": 62, "18": 65, "19": 65, "20": 65, "21": 65}, "totale": 65, "pos": 15}, {"squadra": "R-IGA", "ds": "Alessandro Bonissone", "stages": {"1": 0, "2": 0, "4": 35, "5": 35, "6": 36, "7": 36, "8": 36, "9": 38, "10": 38, "11": 41, "12": 42, "13": 46, "14": 46, "15": 47, "16": 49, "17": 50, "18": 50, "19": 50, "20": 50, "21": 50}, "totale": 50, "pos": 16}, {"squadra": "Confusion Mentale Fin de Siècle", "ds": "Davide Grazielli", "stages": {"1": 0, "2": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0, "10": 0, "11": 0, "12": 4, "13": 4, "14": 4, "15": 5, "16": 7, "17": 8, "18": 43, "19": 43, "20": 43, "21": 43}, "totale": 43, "pos": 17}, {"squadra": "Heladeria Chocoloco - Gora ETA", "ds": "Guido Romeo", "stages": {"1": 0, "2": 20, "4": 24, "5": 24, "6": 24, "7": 24, "8": 24, "9": 24, "10": 24, "11": 24, "12": 24, "13": 24, "14": 24, "15": 24, "16": 24, "17": 28, "18": 29, "19": 29, "20": 41, "21": 42}, "totale": 42, "pos": 18}, {"squadra": "LIDLL TRIMONI", "ds": "Giacomo Sacchetti", "stages": {"1": 8, "2": 9, "4": 9, "5": 12, "6": 18, "7": 23, "8": 26, "9": 26, "10": 26, "11": 29, "12": 29, "13": 30, "14": 30, "15": 32, "16": 34, "17": 35, "18": 35, "19": 35, "20": 35, "21": 35}, "totale": 35, "pos": 19}, {"squadra": "T-Mobbasta", "ds": "Ale Mayr", "stages": {"1": 0, "2": 1, "4": 4, "5": 9, "6": 9, "7": 10, "8": 13, "9": 17, "10": 25, "11": 25, "12": 25, "13": 25, "14": 25, "15": 31, "16": 33, "17": 34, "18": 34, "19": 34, "20": 34, "21": 34}, "totale": 34, "pos": 20}, {"squadra": "GxG", "ds": "Giacomo Gambatesa", "stages": {"1": 2, "2": 4, "4": 10, "5": 10, "6": 11, "7": 11, "8": 11, "9": 11, "10": 11, "11": 11, "12": 11, "13": 11, "14": 11, "15": 11, "16": 19, "17": 20, "18": 20, "19": 20, "20": 20, "21": 32}, "totale": 32, "pos": 21}, {"squadra": "Gnaron1995", "ds": "Aaron Medico", "stages": {"1": 5, "2": 5, "4": 17, "5": 20, "6": 21, "7": 21, "8": 21, "9": 23, "10": 23, "11": 23, "12": 23, "13": 23, "14": 27, "15": 27, "16": 27, "17": 28, "18": 28, "19": 28, "20": 30, "21": 30}, "totale": 30, "pos": 22}, {"squadra": "LaRosaRossa", "ds": "Fabio Passi", "stages": {"1": 0, "2": 0, "4": 0, "5": 1, "6": 1, "7": 1, "8": 1, "9": 3, "10": 4, "11": 4, "12": 4, "13": 4, "14": 4, "15": 4, "16": 6, "17": 7, "18": 12, "19": 15, "20": 23, "21": 23}, "totale": 23, "pos": 23}, {"squadra": "Pippotinho Soudal", "ds": "Davide Cipollini", "stages": {"1": 6, "2": 6, "4": 6, "5": 6, "6": 6, "7": 6, "8": 6, "9": 6, "10": 6, "11": 6, "12": 6, "13": 6, "14": 6, "15": 6, "16": 6, "17": 11, "18": 11, "19": 11, "20": 11, "21": 14}, "totale": 14, "pos": 24}];
+const HAS_EXTRA = false;
+
+function esc(s){ return (s===null||s===undefined) ? '' : String(s); }
+
+function render(){
+  const stageKeys = Object.keys(DATA[0].stages).map(Number).sort((a,b)=>a-b);
+  let options = '';
+  stageKeys.forEach(n=>{ options += `<option value="Tappa ${n}">Tappa ${n}</option>`; });
+  if(HAS_EXTRA) options += `<option value="Extra">Extra</option>`;
+  options += `<option value="Totale" selected>Totale</option>`;
+
+  const rows = DATA.map((r,i)=>{
+    const isLeader = r.pos===1;
+    let labelSpans = '';
+    stageKeys.forEach(n=>{
+      labelSpans += `<div class="pts-item stage-item" data-label="Tappa ${n}"><span class="pts">${r.stages[n]}</span><span class="pts-label">Tappa ${n}</span></div>`;
+    });
+    if(HAS_EXTRA){
+      labelSpans += `<div class="pts-item stage-item" data-label="Extra"><span class="pts pts-extra">${r.extra}</span><span class="pts-label">Extra</span></div>`;
+    }
+    labelSpans += `<div class="pts-item stage-item" data-label="Totale"><span class="pts pts-totale">${r.totale}</span><span class="pts-label">Totale</span></div>`;
+    return `<div class="row${isLeader?' leader':(i%2?' alt':'')}">
+      <div class="pos">${r.pos}</div>
+      <div class="team-block"><span class="team">${esc(r.squadra)}</span><span class="ds">${esc(r.ds)}</span></div>
+      <div class="pts-block">${labelSpans}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('classifica-container').innerHTML = `
+    <select class="stage-select" id="stage-select">${options}</select>
+    <div class="board">${rows}</div>`;
+
+  const select = document.getElementById('stage-select');
+  function applyFilter(){
+    const val = select.value;
+    document.querySelectorAll('.stage-item').forEach(el=>{
+      const lbl = el.dataset.label;
+      el.style.display = (lbl === 'Totale' || lbl === val) ? '' : 'none';
+    });
+  }
+  select.addEventListener('change', applyFilter);
+  applyFilter();
+}
+render();
+</script>
+</body></html>
